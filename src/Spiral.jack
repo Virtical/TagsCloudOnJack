@@ -1,0 +1,62 @@
+class Spiral {
+    field Point Center;
+    field Point CurPoint;
+    field int Index;
+    field int CurIndex;
+    field int Direction;
+
+    constructor Spiral new(int x, int y) {
+        var Point point;
+
+        let point = Point.new(x, y);
+
+        let CurPoint = point;
+        let Center = point;
+
+        let Index = 2;
+        let CurIndex = 0;
+        let Direction = 0;
+
+        return this;
+    }
+
+    method Point getNextPoint () {
+        var int x, y;
+
+        let x = CurPoint.GetX();
+        let y = CurPoint.GetY();
+        do CurPoint.dispose();
+
+        if (Direction = 0) {
+            let CurPoint = Point.new(x + 1, y);
+            let CurIndex = CurIndex + 1;
+        }
+
+        if (Direction = 1) {
+            let CurPoint = Point.new(x, y + 1);
+            let CurIndex = CurIndex + 1;
+        }
+
+        if (Direction = 2) {
+            let CurPoint = Point.new(x - 1, y);
+            let CurIndex = CurIndex + 1;
+        }
+
+        if (Direction = 3) {
+            let CurPoint = Point.new(x, y-1);
+            let CurIndex = CurIndex + 1;
+        }
+
+        if (CurIndex = Index) {
+            let Index = Index + 2;
+            let CurIndex = 0;
+            let Direction = Direction + 1;
+        }
+        
+        if (Direction > 3) {
+            let Direction = 0;
+        }
+
+        return CurPoint;
+    }
+}

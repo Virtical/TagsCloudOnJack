@@ -1,0 +1,23 @@
+class Main {
+    function void main() {
+        var Spiral spiral;
+        var Point p;
+        var int i, px, py;
+
+        let spiral = Spiral.new(255, 127);
+        let i = 0;
+
+        while (i < 32767) {
+            let p = spiral.getNextPoint();
+
+            let px = p.GetX();
+            let py = p.GetY();
+
+            do Screen.drawPixel(px, py);
+
+            let i = i+1;
+        }
+    
+        return;
+    }
+}
