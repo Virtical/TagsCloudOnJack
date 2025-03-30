@@ -1,5 +1,19 @@
 class Main {
     function void main() {
+        do Main.big();
+        return;
+    }
+
+    function void big() {
+         var BigInt myBigInt;
+
+         let myBigInt = BigInt.new(1);
+         do myBigInt.print();
+
+         return;
+    }
+
+    function void spiral() {
         var Spiral spiral;
         var Point p;
         var int i, px, py;
@@ -17,7 +31,7 @@ class Main {
 
             let i = i+1;
         }
-    
+
         return;
     }
 }

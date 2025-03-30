@@ -1,0 +1,62 @@
+class BigInt {
+    field Array A;
+    field int Dim;
+
+    constructor BigInt new(int x) {
+        var int i, digit, num;
+
+        if (x = 0) {
+            do Sys.error(500);
+        }
+
+        let A = Array.new(8);
+        let i = 0;
+
+        while (x > 0) {
+            let num = (x/10)*10;
+            let digit = 0;
+
+            while (~(x = num)) {
+                let x = x-1;
+                let digit = digit + 1;
+            }
+
+            let A[i] = digit;
+            let x = x / 10;
+            let i = i+1;
+        }
+
+        let Dim = i;
+
+        return this;
+    }
+
+    constructor BigInt Zero() {
+        let A = Array.new(8);
+        let A[0] = 0;
+        let A[1] = 0;
+        let A[2] = 0;
+        let A[3] = 0;
+        let A[4] = 0;
+        let A[5] = 0;
+        let A[6] = 0;
+        let A[7] = 0;
+
+        let Dim = 1;
+
+        return this;
+    }
+
+    method void print() {
+        var int i;
+
+        let i = Dim;
+
+        while(i > 0) {
+            do Output.printInt(A[i-1]);
+            let i = i - 1;
+        }
+
+        return;
+    }
+}

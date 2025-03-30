@@ -1,4 +1,18 @@
-function Main.main 5
+function Main.main 0
+call Main.big 0
+pop temp 0
+push constant 0
+return
+function Main.big 1
+push constant 1
+call BigInt.new 1
+pop local 0
+push local 0
+call BigInt.print 1
+pop temp 0
+push constant 0
+return
+function Main.spiral 5
 push constant 255
 push constant 127
 call Spiral.new 2
