@@ -5,12 +5,21 @@ class Main {
     }
 
     function void big() {
-         var BigInt myBigInt;
+        var BigInt myBigInt1, myBigInt2, myBigInt3;
 
-         let myBigInt = BigInt.new(1);
-         do myBigInt.print();
+        let myBigInt1 = BigInt.FromInt(31234);
+        let myBigInt2 = BigInt.FromInt(30245);
 
-         return;
+        do myBigInt1.Print();
+        do Output.printString(" * ");
+        do myBigInt2.Print();
+        do Output.printString(" = ");
+        
+        let myBigInt3 = BigInt.Multiplication(myBigInt1, myBigInt2);
+        do myBigInt3.Print();
+
+
+        return;
     }
 
     function void spiral() {

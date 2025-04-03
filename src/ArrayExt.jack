@@ -1,0 +1,29 @@
+class ArrayExt {
+    function Array Slice(Array A, int start, int dim) {
+        var Array result;
+        var int i;
+
+        let result = Array.new(dim);
+
+        let i = 0;
+        while (~(i = dim)) {
+            let result[i] = A[start + i];
+            let i = IntExt.Inc(i);
+        }
+
+        return result;
+    }
+
+    function void Print(Array A, int Dim) {
+        var int i;
+
+        let i = Dim;
+
+        while(i > 0) {
+            do Output.printInt(A[i-1]);
+            let i = IntExt.Dec(i);
+        }
+
+        return;
+    }
+}

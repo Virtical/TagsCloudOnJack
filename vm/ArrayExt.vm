@@ -1,0 +1,59 @@
+function ArrayExt.Slice 2
+push argument 2
+call Array.new 1
+pop local 0
+push constant 0
+pop local 1
+label WHILE_EXP0
+push local 1
+push argument 2
+eq
+not
+not
+if-goto WHILE_END0
+push local 1
+push local 0
+add
+push argument 1
+push local 1
+add
+push argument 0
+add
+pop pointer 1
+push that 0
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push local 1
+call IntExt.Inc 1
+pop local 1
+goto WHILE_EXP0
+label WHILE_END0
+push local 0
+return
+function ArrayExt.Print 1
+push argument 1
+pop local 0
+label WHILE_EXP0
+push local 0
+push constant 0
+gt
+not
+if-goto WHILE_END0
+push local 0
+push constant 1
+sub
+push argument 0
+add
+pop pointer 1
+push that 0
+call Output.printInt 1
+pop temp 0
+push local 0
+call IntExt.Dec 1
+pop local 0
+goto WHILE_EXP0
+label WHILE_END0
+push constant 0
+return

@@ -1,32 +1,41 @@
 class BigInt {
     field Array A;
     field int Dim;
+    field int MaxDim;
 
-    constructor BigInt new(int x) {
+    constructor BigInt FromInt(int x) {
         var int i, digit, num;
 
-        if (x = 0) {
-            do Sys.error(500);
-        }
-
         let A = Array.new(8);
+        let MaxDim = 8;
         let i = 0;
 
-        while (x > 0) {
-            let num = (x/10)*10;
-            let digit = 0;
-
-            while (~(x = num)) {
-                let x = x-1;
-                let digit = digit + 1;
+        if (x = 0) {
+            while (i < 8) {
+                let A[i] = 0;
+                let i = IntExt.Inc(i);
             }
 
-            let A[i] = digit;
+            let Dim = 1;
+
+            return this;
+        }
+
+        while (x > 0) {
+            let A[i] = IntExt.LastNum(x);
             let x = x / 10;
-            let i = i+1;
+            let i = IntExt.Inc(i);
         }
 
         let Dim = i;
+
+        return this;
+    }
+
+    constructor BigInt FromBigInt(Array x, int d, int maxD) {
+        let A = x;
+        let Dim = d;
+        let MaxDim = maxD;
 
         return this;
     }
@@ -43,20 +52,229 @@ class BigInt {
         let A[7] = 0;
 
         let Dim = 1;
+        let MaxDim = 8;
 
         return this;
     }
 
-    method void print() {
+    method void Print() {
         var int i;
 
         let i = Dim;
 
         while(i > 0) {
             do Output.printInt(A[i-1]);
-            let i = i - 1;
+            let i = IntExt.Dec(i);
         }
 
         return;
+    }
+    
+    // +
+
+    function BigInt Add(BigInt left, BigInt right) {
+        var int maxLength, newLength, carry, i, digitL, digitR, sum, num, digit;
+        var Array result;
+        var BigInt bi;
+
+        let maxLength = Math.max(left.GetDim(), right.GetDim());
+        let newLength = Math.max(left.GetMaxDim(), right.GetMaxDim());
+
+        if (maxLength = newLength) {
+            let newLength = newLength*2;
+        }
+
+        let result = Array.new(newLength);
+
+        let carry = 0;
+        let i = 0;
+
+        while (i < maxLength) {
+            if (i < left.GetDim()) {
+                let digitL = left.GetNum(i);
+            }
+            else {
+                let digitL = 0;
+            }
+
+            if (i < right.GetDim()) {
+                let digitR = right.GetNum(i);
+            }
+            else {
+                let digitR = 0;
+            }
+
+            let sum = digitL + digitR + carry;
+
+            let result[i] = IntExt.LastNum(sum);
+            let carry = sum / 10;
+
+            let i = IntExt.Inc(i);
+        }
+
+
+        if (~(carry = 0)) {
+            let result[maxLength] = carry;
+            let maxLength = IntExt.Inc(maxLength);
+        }
+
+        let i = maxLength;
+
+        while (i < newLength) {
+            let result[i] = 0;
+            let i = IntExt.Inc(i);
+        }
+
+        let bi = BigInt.FromBigInt(result, maxLength, newLength);
+
+        return bi;
+    }
+
+    // *
+
+    function BigInt Multiplication(BigInt left, BigInt right) {
+        var int leftDim, rightDim, sumLength, newLength, maxLength, a0Length, a1Length, b0Length, b1Length, mult, m2, m;
+        var Array a, b, a0, a1, b0, b1;
+        var BigInt a0BigInt, a1BigInt, b0BigInt, b1BigInt, result, mBigInt, m2BigInt, p1, p2, p3, p4, p5, a1, a2, a3, test;
+
+        let leftDim = left.GetDim();
+        let rightDim = right.GetDim();
+
+        if ((leftDim < 3) & (rightDim < 3)) {
+            let mult = IntExt.FromBigInt(left) * IntExt.FromBigInt(right);
+            
+            return BigInt.FromInt(mult);
+        }
+
+        let maxLength = Math.max(leftDim, rightDim);
+
+        let left = left.IncreaseTo(maxLength);
+        let right = right.IncreaseTo(maxLength);
+
+        let leftDim = left.GetDim();
+        let rightDim = right.GetDim();
+
+        let sumLength = leftDim + rightDim;
+        let newLength = Math.max(left.GetMaxDim(), right.GetMaxDim());
+
+        if (sumLength > newLength) {
+            let newLength = newLength*2;
+        }
+
+        let a1Length = Math.max(leftDim, rightDim)/2;
+        let a0Length = leftDim-a1Length;
+
+        let a = left.GetArray();
+        let a0 = ArrayExt.Slice(a, a1Length, a0Length);
+        let a1 = ArrayExt.Slice(a, 0, a1Length);
+
+        let b1Length = Math.max(leftDim, rightDim)/2;
+        let b0Length = rightDim-b1Length;
+
+        let b = right.GetArray();
+        let b0 = ArrayExt.Slice(b, b1Length, b0Length);
+        let b1 = ArrayExt.Slice(b, 0, b1Length);
+
+        let a0BigInt = BigInt.FromBigInt(a0, a0Length, a0Length);
+        let a1BigInt = BigInt.FromBigInt(a1, a1Length, a1Length);
+        let b0BigInt = BigInt.FromBigInt(b0, b0Length, b0Length);
+        let b1BigInt = BigInt.FromBigInt(b1, b1Length, b1Length);
+
+        let mBigInt = BigInt.FromInt(a1Length);
+        let m2BigInt = BigInt.FromInt(a1Length*2);
+
+        let p1 = BigInt.Multiplication(a0BigInt, b0BigInt);
+
+        let p2 = BigInt.Multiplication(a1BigInt, b0BigInt);
+        let p3 = BigInt.Multiplication(a0BigInt, b1BigInt);
+        let p4 = BigInt.Add(p2, p3);
+
+        let p5 = BigInt.Multiplication(a1BigInt, b1BigInt);
+
+        let a1 = p1.MoveLeft(m2BigInt);
+
+        let a2 = p4.MoveLeft(mBigInt);
+        let a3 = p5;
+
+        let result = BigInt.Add(a1, a2);
+        let result = BigInt.Add(result, a3);
+
+        return result;
+    }
+
+    method Array GetArray() {
+        return A;
+    }
+
+    method int GetNum(int i) {
+        return A[i];
+    }
+
+    method int GetDim() {
+        return Dim;
+    }
+
+    method int GetMaxDim() {
+        return MaxDim;
+    }
+
+    method BigInt IncreaseTo(int x) {
+        var Array arr;
+        var int i;
+
+        if (Dim = x) {
+            return this;
+        }
+
+        let i = 0;
+
+        let arr = Array.new(x);
+
+        while (i < Dim) {
+            let arr[i] = A[i];
+            let i = IntExt.Inc(i);
+        }
+
+        while (i < x) {
+            let arr[i] = 0;
+            let i = IntExt.Inc(i);
+        }
+
+        let A = arr;
+        let Dim = x;
+        let MaxDim = x;
+
+        return this;
+    }
+
+    method BigInt MoveLeft(BigInt x) {
+        var int newLength, extra, i;
+        var Array array;
+
+        let array = Array.new(MaxDim);
+        let extra = IntExt.FromBigInt(x);
+        let newLength = Dim + extra;
+
+        if (newLength > MaxDim) {
+            let array = Array.new(newLength);
+        }
+
+        let i = Dim;
+
+        while (i > 0) {
+            let array[i+extra-1] = A[i-1];
+            let i = IntExt.Dec(i);
+        }
+
+        while (i < extra) {
+            let array[i] = 0;
+            let i = IntExt.Inc(i);
+        }
+
+        let A = array;
+        let Dim = newLength;
+        let MaxDim = newLength;
+
+        return this;
     }
 }

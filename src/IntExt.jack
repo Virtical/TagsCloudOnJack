@@ -1,0 +1,55 @@
+class IntExt {
+    function int LastNum(int x) {
+        var int num, digit;
+
+        let num = (x/10)*10;
+        let digit = 0;
+
+        while (~(x = num)) {
+            let x = x-1;
+            let digit = digit + 1;
+        }
+
+        return digit;
+    }
+
+    function int Inc(int x) {
+        return x + 1;
+    }
+    
+    function int Dec(int x) {
+        return x - 1;
+    }
+
+    function int FromBigInt(BigInt x) {
+        var int dim, i, ten, num;
+        var Array array;
+
+        let dim = x.GetDim();
+        let array = x.GetArray();
+        let i = 0;
+        let ten = 1;
+        let num = 0;
+
+        while (i < dim) {
+            let num = array[i] * ten + num;
+            let i = IntExt.Inc(i);
+            let ten = ten * 10;
+        }
+
+        return num;
+    }
+
+    function int Pow(int base, int exp) {
+        var int res;
+
+        let res = 1;
+
+        while (exp > 0) {
+            let res = res * base;
+            let exp = exp-1;
+        }
+
+        return res;
+    }
+}
