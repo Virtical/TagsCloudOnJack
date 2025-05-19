@@ -21,6 +21,14 @@ class IntExt {
         return x - 1;
     }
 
+    function int IsGreaterOrEqual(int x, int y) {
+        return (x > y) | (x = y);
+    }
+
+    function int IsLessOrEqual(int x, int y) {
+        return (x < y) | (x = y);
+    }
+
     function int FromBigInt(BigInt x) {
         var int dim, i, ten, num;
         var Array array;
@@ -51,5 +59,13 @@ class IntExt {
         }
 
         return res;
+    }
+
+    function int Mod(int x, int y) {
+        while (x > y) {
+            let x = x-y;
+        }
+        
+        return x;
     }
 }

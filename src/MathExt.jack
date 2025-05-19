@@ -1,0 +1,44 @@
+class MathExt {
+    function int Sin(int x) {
+        var int x3, y1, y2, y3;
+        var BigInt x2, x5, x7;
+
+        let x3 = x*x*x*10;
+
+        let x2 = BigInt.FromInt(x*x);
+        let x5 = BigInt.Multiplication(BigInt.FromInt(x3), x2);
+        let x7 = BigInt.Multiplication(x5, BigInt.FromInt(x*x));
+
+        let y1 = x3 / 6;
+        let y2 = IntExt.FromBigInt(BigInt.Divide(x5, BigInt.FromInt(120)));
+        let y3 = IntExt.FromBigInt(BigInt.Divide(x7, BigInt.FromInt(5040)));
+
+        do x2.dispose();
+        do x5.dispose();
+        do x7.dispose();
+
+        return x*10 - y1 + y2 - y3;
+    }
+
+    function int Cos(int x) {
+        var int x2, y1, y2, y3, y4;
+        var BigInt x4, x6, x8;
+
+        let x2 = x*x;
+
+        let x4 = BigInt.Multiplication(BigInt.FromInt(x*x*10), BigInt.FromInt(x2));
+        let x6 = BigInt.Multiplication(x4, BigInt.FromInt(x2));
+        let x8 = BigInt.Multiplication(x6, BigInt.FromInt(x2));
+
+        let y1 = x2*10 / 2;
+        let y2 = IntExt.FromBigInt(BigInt.Divide(x4, BigInt.FromInt(24)));
+        let y3 = IntExt.FromBigInt(BigInt.Divide(x6, BigInt.FromInt(720)));
+        let y4 = IntExt.FromBigInt(BigInt.Divide(x8, BigInt.Multiplication(BigInt.FromInt(720), BigInt.FromInt(56))));
+
+        do x4.dispose();
+        do x6.dispose();
+        do x8.dispose();
+
+        return 10 - y1 + y2 - y3 + y4;
+    }
+}

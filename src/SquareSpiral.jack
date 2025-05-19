@@ -1,11 +1,11 @@
-class Spiral {
+class SquareSpiral {
     field Point Center;
     field Point CurPoint;
     field int Index;
     field int CurIndex;
     field int Direction;
 
-    constructor Spiral new(int x, int y) {
+    constructor SquareSpiral new(int x, int y) {
         var Point point;
 
         let point = Point.new(x, y);

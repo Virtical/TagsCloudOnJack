@@ -1,33 +1,86 @@
 class Main {
     function void main() {
-        do Main.big();
+        do Main.SquareSpiralM();
+
         return;
     }
 
     function void big() {
-        var BigInt myBigInt1, myBigInt2, myBigInt3;
+        var BigInt num1, num2, res;
 
-        let myBigInt1 = BigInt.FromInt(31234);
-        let myBigInt2 = BigInt.FromInt(30245);
+        let num1 = BigInt.FromInt(18734);
+        let num2 = BigInt.FromInt(7687);
+        let res = BigInt.Divide(num1, num2);
 
-        do myBigInt1.Print();
-        do Output.printString(" * ");
-        do myBigInt2.Print();
-        do Output.printString(" = ");
-        
-        let myBigInt3 = BigInt.Multiplication(myBigInt1, myBigInt2);
-        do myBigInt3.Print();
-
+        do res.Print();
 
         return;
     }
 
-    function void spiral() {
-        var Spiral spiral;
+    function void BigIntDivideTests() {
+        var BigInt num1, num2, res;
+
+        let num1 = BigInt.FromInt(20000);
+        let num2 = BigInt.FromInt(500);
+        let res = BigInt.Divide(num1, num2);
+
+        if (IntExt.FromBigInt(res) = 40) {
+            do Output.printString("Error 20000 / 500");
+        }
+
+        do Output.println();
+
+        let num1 = BigInt.FromInt(18734);
+        let num2 = BigInt.FromInt(7687);
+        let res = BigInt.Divide(num1, num2);
+
+        if (IntExt.FromBigInt(res) = 2) {
+            do Output.printString("Error 18734 / 7687");
+        }
+
+        do Output.println();
+
+        let num1 = BigInt.FromInt(26374);
+        let num2 = BigInt.FromInt(52);
+        let res = BigInt.Divide(num1, num2);
+
+        if (IntExt.FromBigInt(res) = 507) {
+            do Output.printString("Error 26374 / 52");
+        }
+
+        do Output.println();
+
+        return;
+    }
+
+    function void SquareSpiralM() {
+        var SquareSpiral spiral;
         var Point p;
         var int i, px, py;
 
-        let spiral = Spiral.new(255, 127);
+        let spiral = SquareSpiral.new(255, 127);
+        let i = 0;
+
+        while (i < 32767) {
+            let p = spiral.getNextPoint();
+
+            let px = p.GetX();
+            let py = p.GetY();
+
+            do Screen.drawPixel(px, py);
+
+            let i = i+1;
+        }
+
+        return;
+    }
+
+    function void ArchimedeanSpiralM() {
+        var ArchimedeanSpiral spiral;
+        var Point p;
+        var int i, px, py;
+
+        let spiral = ArchimedeanSpiral.new(255, 127);
         let i = 0;
 
         while (i < 32767) {

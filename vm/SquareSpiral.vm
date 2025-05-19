@@ -1,4 +1,4 @@
-function Spiral.new 1
+function SquareSpiral.new 1
 push constant 5
 call Memory.alloc 1
 pop pointer 0
@@ -18,7 +18,7 @@ push constant 0
 pop this 4
 push pointer 0
 return
-function Spiral.getNextPoint 2
+function SquareSpiral.getNextPoint 2
 push argument 0
 pop pointer 0
 push this 1

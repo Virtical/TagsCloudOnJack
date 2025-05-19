@@ -36,6 +36,24 @@ push argument 0
 push constant 1
 sub
 return
+function IntExt.IsGreaterOrEqual 0
+push argument 0
+push argument 1
+gt
+push argument 0
+push argument 1
+eq
+or
+return
+function IntExt.IsLessOrEqual 0
+push argument 0
+push argument 1
+lt
+push argument 0
+push argument 1
+eq
+or
+return
 function IntExt.FromBigInt 5
 push argument 0
 call BigInt.GetDim 1
@@ -96,4 +114,19 @@ pop argument 1
 goto WHILE_EXP0
 label WHILE_END0
 push local 0
+return
+function IntExt.Mod 0
+label WHILE_EXP0
+push argument 0
+push argument 1
+gt
+not
+if-goto WHILE_END0
+push argument 0
+push argument 1
+sub
+pop argument 0
+goto WHILE_EXP0
+label WHILE_END0
+push argument 0
 return

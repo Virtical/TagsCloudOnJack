@@ -26,4 +26,17 @@ class ArrayExt {
 
         return;
     }
+
+    function Array Fill(Array A, int dim, int x) {
+        var int i;
+
+        let i = 0;
+
+        while (i < dim) {
+            let A[i] = x;
+            let i = IntExt.Inc(i);
+        }
+
+        return A;
+    }
 }

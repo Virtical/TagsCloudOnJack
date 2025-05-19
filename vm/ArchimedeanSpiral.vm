@@ -1,0 +1,31 @@
+function ArchimedeanSpiral.new 0
+push constant 3
+call Memory.alloc 1
+pop pointer 0
+push argument 0
+push argument 1
+call Point.new 2
+pop this 0
+push constant 3
+pop this 1
+push constant 1
+pop this 2
+push pointer 0
+return
+function ArchimedeanSpiral.getNextPoint 2
+push argument 0
+pop pointer 0
+push this 1
+call MathExt.Sin 1
+call Output.printInt 1
+pop temp 0
+call Output.println 0
+pop temp 0
+push this 1
+push this 2
+add
+pop this 1
+push constant 0
+push constant 0
+call Point.new 2
+return

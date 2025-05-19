@@ -1,0 +1,15 @@
+class BigFraction {
+    field BigInt Numerator;
+    field BigInt Denominator;
+
+    constructor BigFraction new(BigInt n, BigInt d) {
+        let Numerator = n;
+        let Denominator = d;
+
+        return this;
+    }
+
+    method BigInt GetWholePart() {
+        return BigInt.Divide(Numerator, Denominator);
+    }
+}

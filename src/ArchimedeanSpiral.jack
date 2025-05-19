@@ -1,0 +1,25 @@
+class ArchimedeanSpiral {
+    field Point Center;
+    field int Angle;
+    field int SpiralStep;
+
+    constructor ArchimedeanSpiral new(int x, int y) {
+        let Center = Point.new(x, y);
+
+        let Angle = 3;
+        let SpiralStep = 1;
+
+        return this;
+    }
+
+    method Point getNextPoint () {
+        var int x, y;
+
+        do Output.printInt(MathExt.Sin(Angle));
+        do Output.println();
+
+        let Angle = Angle + SpiralStep;
+
+        return Point.new(0, 0);
+    }
+}

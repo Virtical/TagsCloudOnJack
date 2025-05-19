@@ -1,0 +1,17 @@
+function BigFraction.new 0
+push constant 2
+call Memory.alloc 1
+pop pointer 0
+push argument 0
+pop this 0
+push argument 1
+pop this 1
+push pointer 0
+return
+function BigFraction.GetWholePart 0
+push argument 0
+pop pointer 0
+push this 0
+push this 1
+call BigInt.Divide 2
+return
